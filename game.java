@@ -42,7 +42,15 @@ public class game
         
         int subBoard, tile;
         System.out.print("Choose a sub-board: "); subBoard = read.nextInt();
+        while (subBoard < 1 || subBoard > 9) {
+            System.out.print("Invalid selection. Choose a sub-board: ");
+            subBoard = read.nextInt();
+        }
         System.out.print("Choose a tile number: "); tile = read.nextInt();
+        while (tile < 1 || tile > 9) {
+            System.out.print("Invalid selection. Choose a tile number: ");
+            tile = read.nextInt();
+        }
         String temp = findIndexOfSubBoard(subBoard);
         int c = Integer.parseInt(temp.substring(1));
         int r = Integer.parseInt(temp.substring(0,1));
