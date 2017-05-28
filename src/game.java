@@ -28,6 +28,7 @@ public class game
     public static void main(String [] args) {
         Scanner read = new Scanner(System.in);
         Board[][] TTT = new Board[3][3];
+        ArrayList<Integer> won = new ArrayList<Integer>();
         int count = 1;
         int turn = 2;
         int xWins, oWins = 0;
@@ -47,12 +48,12 @@ public class game
             }
         }
 
-        System.out.println("Player " + (turn%2+1) + "'s turn.");
         drawBoard(TTT);
+        System.out.println("Player " + (turn%2+1) + "'s turn.");
 
         int subBoard, tile;
         System.out.print("Choose a sub-board: "); subBoard = read.nextInt();
-        while (subBoard < 1 || subBoard > 9) {
+        while (subBoard < 1 || subBoard > 9 || searchWon(subBoard, won)) {
             System.out.print("Invalid selection. Choose a sub-board: ");
             subBoard = read.nextInt();
         }
@@ -61,23 +62,35 @@ public class game
             System.out.print("Invalid selection. Choose a tile number: ");
             tile = read.nextInt();
         }
+        
         String temp = findIndexOfSubBoard(subBoard);
         int c = Integer.parseInt(temp.substring(1));
         int r = Integer.parseInt(temp.substring(0,1));
         TTT[r][c].move(tile, (turn%2==0)?"X":"O");
         System.out.print("\f");
+        turn++;
         drawBoard(TTT);
 
-        while(true) {
-            turn++;
+        while(checkWinner(TTT) == 0) {  //TO BE EDITED, checkWinner should return a player #
+            System.out.println("Player " + (turn%2+1) + "'s turn.");
+            
+            if(searchWon(tile, won)) {
+                System.out.print("Previous player chose a sub-board that is already won. Choose any other sub-board: ");
+                tile = read.nextInt();
+                while((tile < 1 || tile > 9) || searchWon(tile, won)) {
+                    System.out.print("Invalid move. Try again: "); tile = read.nextInt();   
+                }
+            }
             subBoard = tile;
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
             tile = read.nextInt();
+            
             while (tile < 1 || tile > 9) {
                 System.out.print("Invalid move. Try again: ");
                 tile = read.nextInt();
             }
-            temp = findIndexOfSubBoard(subBoard);
+            
+            temp = new String(findIndexOfSubBoard(subBoard));
             c = Integer.parseInt(temp.substring(1));
             r = Integer.parseInt(temp.substring(0,1));
             while(TTT[r][c].move(tile, (turn%2==0)?"X":"O") == false) {
@@ -90,13 +103,26 @@ public class game
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
             }
+            
+            won.add(TTT[r][c].checkBoard());
+            
             System.out.print("\f");
 
-            System.out.println("Player " + (turn%2+1) + "'s turn.");
             drawBoard(TTT);
+            System.out.print((won.get(won.size()-1)!=0)?"Player " + (turn%2+1) + " has won sub-board " + won.get(won.size() - 1) + "\n":"");
+            turn++;
         }
     }
 
+    //checks if the board is won, in which case it would be contained in the ArrayList won
+    public static boolean searchWon(int s, ArrayList<Integer> won) {
+        return won.contains(s);   
+    }
+    
+    //checks for winners on the board *****************TO BE IMPLEMENTED*****************
+    public static int checkWinner(Board[][] TTT) {
+        return 0   
+    }
 
     //finds index of the board number chosen
     public static String findIndexOfSubBoard(int subBoard) {
@@ -111,6 +137,7 @@ public class game
         return null;
     }
 
+    
 //draws the board one row at a time using the drawRow method of each Board object within TTT
     public static void drawBoard(Board[][] TTT) {
         int rowNum = 0;
