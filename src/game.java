@@ -119,9 +119,43 @@ public class game
         return won.contains(s);   
     }
     
-    //checks for winners on the board *****************TO BE IMPLEMENTED*****************
+    //checks for winners on the board *****************TO BE REVIEWED*****************
     public static int checkWinner(Board[][] TTT) {
-        return 0   
+        //horizontal check
+        for(Board[] b : TTT) {
+            if(b[0].getWinner()==(b[1].getWinner()) &&
+                b[0].getWinner()==(b[2].getWinner()) &&
+                (b[0].getWinner() == 1 || b[0].getWinner() == 2)) {
+                    return b[0].getWinner();
+                }
+        }
+        
+        //vertical check
+        for(int i = 0; i < 3; i++) {
+            if(TTT[0][i].getWinner()==(TTT[1][i].getWinner()) && 
+                TTT[0][i].getWinner()==(TTT[2][i].getWinner()) &&
+                (TTT[0][i].getWinner()==1 || TTT[0][i].getWinner()==2)) {
+                return TTT[0][i].getWinner();
+            }
+        }
+        
+        //diagonal checks
+        if (TTT[0][0].getWinner()==(TTT[1][1].getWinner()) && TTT[0][0].getWinner()==(TTT[2][2].getWinner())){
+            if (TTT[0][0].getWinner()==1) {
+                return 1;
+            } else if (TTT[0][0].getWinner()==2) {
+                return 2;
+            }
+        }
+        if (TTT[0][2].getWinner()==(TTT[1][1].getWinner()) && TTT[0][2].getWinner()==(TTT[2][0].getWinner())){
+            if (TTT[0][2].getWinner()==1) {
+                return 1;
+            } else if (TTT[0][2].getWinner()==2) {
+                return 2;
+            }
+        }
+        
+        return 0;
     }
 
     //finds index of the board number chosen
