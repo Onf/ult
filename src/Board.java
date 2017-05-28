@@ -94,6 +94,24 @@ public class Board
         }
         
         //diagonal checks
+        if (board[0][0].getSymbol().equals(board[1][1].getSymbol()) && board[0][0].getSymbol().equals(board[2][2].getSymbol())){
+            if (board[0][0].getSymbol().equals("X")) {
+                winner = 1;
+                return area;
+            } else if (board[0][0].getSymbol().equals("O")) {
+                winner = 2;
+                return area;
+            }
+        }
+        if (board[0][2].getSymbol().equals(board[1][1].getSymbol()) && board[0][2].getSymbol().equals(board[2][0].getSymbol())){
+            if (board[0][2].getSymbol().equals("X")) {
+                winner = 1;
+                return area;
+            } else if (board[0][2].getSymbol().equals("O")) {
+                winner = 2;
+                return area;
+            }
+        }
         
         return 0;
     
