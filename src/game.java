@@ -9,13 +9,13 @@
  *
  *drawBoard(Board[][] TTT)
  *findIndexOfSubBoard(int subBoard)
+ *drawIntro()
  *drawTutorial1()
  *drawTutorial2()
  *
  *
  *
- *
- *vars: int count, turn, subBoard, tile, c, r, rowNum
+ *vars: int count, turn, subBoard, tile, c, r, rowNum, xWins, oWins
  *      Board[][] TTT
  *      Scanner read
  *      String temp
@@ -30,10 +30,10 @@ public class game
         Board[][] TTT = new Board[3][3];
         int count = 1;
         int turn = 2;
+        int xWins, oWins = 0;
 
         System.out.print("Please set the window to fullscreen. Press ENTER to continue... "); read.nextLine();
         drawIntro();
-
         drawTutorial1();
         System.out.print("\nPress ENTER to continue... "); read.nextLine();
         drawTutorial2();
@@ -73,11 +73,19 @@ public class game
             subBoard = tile;
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
             tile = read.nextInt();
+            while (tile < 1 || tile > 9) {
+                System.out.print("Invalid move. Try again: ");
+                tile = read.nextInt();
+            }
             temp = findIndexOfSubBoard(subBoard);
             c = Integer.parseInt(temp.substring(1));
             r = Integer.parseInt(temp.substring(0,1));
             while(TTT[r][c].move(tile, (turn%2==0)?"X":"O") == false) {
                 System.out.print("Invalid move. Try again: "); tile = read.nextInt();
+                while (tile < 1 || tile > 9) {
+                    System.out.print("Invalid move. Try again: ");
+                    tile = read.nextInt();
+                }
                 temp = findIndexOfSubBoard(subBoard);
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
@@ -88,6 +96,7 @@ public class game
             drawBoard(TTT);
         }
     }
+
 
     //finds index of the board number chosen
     public static String findIndexOfSubBoard(int subBoard) {
@@ -144,7 +153,7 @@ public class game
                 "                                                                                          \n" +
                 " ");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -162,7 +171,7 @@ public class game
                 "                                                                                      \\##    ##\n" +
                 "                                                                                       \\###### \n");
         try {
-            Thread.sleep(2000);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -180,7 +189,7 @@ public class game
                 "                                                  \n" +
                 "                                                  \n");
         try {
-            Thread.sleep(2000);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -200,7 +209,7 @@ public class game
                         "                                       \\##\n" +
                         "\n");
         try {
-            Thread.sleep(4000);
+            Thread.sleep(400);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -218,7 +227,7 @@ public class game
                 "                                                                                                 \\##    ##                                                  \n" +
                 "                                                                                                  \\######                                                   \n");
         try {
-            Thread.sleep(2000);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -6,17 +6,17 @@
  * @version (a version number or a date)
  *
  *
- *
- *drawRow(int r)
- *getWinner()
- *move(int tile, String symbol)
- *checkBoard()
+ *vars: area, [][] board, winner, finished
+ *    drawRow(int r)
+ *    getWinner()
+ *    move(int tile, String symbol)
  */
 public class Board
 {
     private int area;
     private Tile[][] board;
     private int winner;
+    private boolean finished = false;
     
     public Board(int a) {
         area = a;
@@ -54,8 +54,13 @@ public class Board
         }
         return true;
     }
-    
-    public void checkBoard() {
-        
+
+    public boolean isFinshed() {
+        if(board[1][1].getSymbol().equals(board[3][3].getSymbol())){
+            if(board[1][1].getSymbol().equals(board[2][2].getSymbol())){
+                finished = true;
+            }
+        }
+        return finished;
     }
 }
