@@ -93,7 +93,7 @@ public class game
             temp = new String(findIndexOfSubBoard(subBoard));
             c = Integer.parseInt(temp.substring(1));
             r = Integer.parseInt(temp.substring(0,1));
-            while(TTT[r][c].move(tile, (turn%2==0)?"X":"O") == false) {
+            while(TTT[r][c].move(tile, (turn%2==0)?"X":"O")) == false) {
                 System.out.print("Invalid move. Try again: "); tile = read.nextInt();
                 while (tile < 1 || tile > 9) {
                     System.out.print("Invalid move. Try again: ");
