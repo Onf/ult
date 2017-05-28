@@ -282,7 +282,8 @@ public class game
                 "#           ##           ##           #\n"+
                 "#           ##           ##           #\n"+
                 "#######################################\n");
-        System.out.println("Each section of the board is assigned a number. Use these numbers to choose a sub-board at the start of the game.");
+        System.out.println("The game plays like tic-tac-toe. Each section of the board is assigned a number. "
+                            + "\nUse these numbers to choose a sub-board at the start of the game.");
 
     }
     public static void drawTutorial2() {
@@ -305,7 +306,8 @@ public class game
                 "#-----------##-----------##-----------#\n"+
                 "# 7 | 8 | 9 ## 7 | 8 | 9 ## 7 | 8 | 9 #\n"+
                 "#######################################\n");
-        System.out.println("Each sub-board is split into tiles from 1-9. Players take turns using these numbers to choose a spot to mark during the game." +
-                "\nWin 3 sub-boards horizontally, vertically, or diagonally to win the game.");
+        System.out.println("However, each sub-board is further split into tiles from 1-9. Players take turns using these numbers to choose a spot to mark during the game." +
+                           "\nThe tile a player selects corresponds to a sub-board on the larger board that the next player must play on." +
+                           "\nWin 3 sub-boards horizontally, vertically, or diagonally to win the game.");
     }
 }
