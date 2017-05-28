@@ -1,9 +1,9 @@
 
 /**
  * Write a description of class game here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * 
+ * @author Jabin Gong, Tariq Kariapper, Ali Ahmed
+ * @version 
  *
  *
  *
@@ -11,6 +11,14 @@
  *findIndexOfSubBoard(int subBoard)
  *drawTutorial1()
  *drawTutorial2()
+ *
+ *
+ *
+ *
+ *vars: int count, turn, subBoard, tile, c, r, rowNum
+ *      Board[][] TTT
+ *      Scanner read
+ *      String temp
  */
 
 
