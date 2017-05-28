@@ -55,12 +55,5 @@ public class Board
         return true;
     }
 
-    public boolean isFinshed() {
-        if(board[1][1].getSymbol().equals(board[3][3].getSymbol())){
-            if(board[1][1].getSymbol().equals(board[2][2].getSymbol())){
-                finished = true;
-            }
-        }
-        return finished;
-    }
+    
 }
