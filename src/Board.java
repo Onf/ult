@@ -112,6 +112,14 @@ public class Board
             }
         }
         
-        return 0;
+        //filled check
+        for(Tile[] t : board) {
+            for(Tile tile : t) {
+                if(tile.getSymbol().equals(" ") {
+                    return 0;
+                }
+            }
+        }
+        return area;
     
 }
