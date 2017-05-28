@@ -94,13 +94,16 @@ public class game
         return null;
     }
 
+//draws the board one row at a time using the drawRow method of each Board object within TTT
     public static void drawBoard(Board[][] TTT) {
+        int rowNum = 0;
         System.out.println("#######################################");
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 for(int k = 0; k < 3; k++) {
-                    TTT[i][j].drawRow(k);
+                    TTT[i][k].drawRow(rowNum);
                 }
+                rowNum++; rowNum %= 3;
                 System.out.println((j==2)?"":"\n#-----------##-----------##-----------#");
             }
             System.out.println("#######################################");
