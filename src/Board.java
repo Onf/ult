@@ -61,18 +61,17 @@ public class Board
         
         //horizontal check
         for(Tile[] b : board) {
-            
             //check.nextLine();
             if(b[0].getSymbol().equals(b[1].getSymbol()) && 
                 b[0].getSymbol().equals(b[2].getSymbol()) &&
                 (b[0].getSymbol().equals("X") || b[0].getSymbol().equals("O"))) {
                 if(b[0].getSymbol().equals("X")) {
                     winner = 1;
-                    return winner;
+                    return area;
                 }
                 else if(b[0].getSymbol().equals("O")) {
                     winner = 2;
-                    return winner;
+                    return area;
                 }
             }
         }
@@ -81,7 +80,7 @@ public class Board
         for(int i = 0; i < 3; i++) {
             if(board[0][i].getSymbol().equals(board[1][i].getSymbol()) && 
                 board[0][i].getSymbol().equals(board[2][i].getSymbol()) &&
-                (board[0][i].getSymbol().equals("X") || board[0][i].equals("O"))) {
+                (board[0][i].getSymbol().equals("X") || board[0][i].getSymbol().equals("O"))) {
                 if(board[0][i].getSymbol().equals("X")) {
                     winner = 1;
                     return area;
