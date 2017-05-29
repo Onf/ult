@@ -31,8 +31,9 @@ public class game
         ArrayList<Integer> won = new ArrayList<Integer>();
         int count = 1;
         int turn = 2;
-        int xWins = 0;
-        int oWins = 0;
+        ArrayList<Integer> xWins = new ArrayList<Integer>();
+        ArrayList<Integer> oWins = new ArrayList<Integer>();
+        ArrayList<Integer> tied = new ArrayList<Integer>();
 
         System.out.print("Please set the window to fullscreen. Press ENTER to continue... "); read.nextLine();
         drawIntro();
@@ -49,7 +50,7 @@ public class game
             }
         }
 
-        drawBoard(TTT, xWins, oWins);
+        drawBoard(TTT, xWins, oWins, tied);
         String symb =  ((turn%2+1)==1)?"(X)":"(O)";
         System.out.println("Player " + (turn%2+1) + "'s turn." + symb);
 
@@ -70,10 +71,10 @@ public class game
         int r = Integer.parseInt(temp.substring(0,1));
         TTT[r][c].move(tile, (turn%2==0)?"X":"O");
         System.out.print("\f");
-        turn++;
-        drawBoard(TTT, xWins, oWins);
+        drawBoard(TTT, xWins, oWins, tied);
 
-        while(checkWinner(TTT) == 0) {  //TO BE EDITED, checkWinner should return a player #
+        while(checkWinner(TTT) == 0 && checkWinner(TTT) != 3) { //not sure if checkWinner(TTT) != 3 works for tie game condition
+            turn++;
             System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1==1)?"(X)":"(O)"));
             
             if(searchWon(tile, won)) {
@@ -108,27 +109,38 @@ public class game
             
             won.add(TTT[r][c].checkBoard());
             
-            System.out.print("\f");
-
-            drawBoard(TTT, xWins, oWins);
             
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
                     System.out.println("Sub-board " + subBoard + " has ended in a tie!");
                     won.add(subBoard);
+                    tied.add(subBoard);
                 }
                 else if(turn%2+1 == 1) {
-                    xWins++;
+                    xWins.add(subBoard);
                     System.out.println("Player 1 has won sub-board " + subBoard);
                 }
                 else {
-                    oWins++;
+                    oWins.add(subBoard);
                     System.out.println("Player 2 has won sub-board " + subBoard);
                 }
             }
             
-            //System.out.print((won.get(won.size()-1)!=0)?"Player " + (turn%2+1) + " has won sub-board " + won.get(won.size() - 1) + "\n":"");
-            turn++;
+            System.out.print("\f");
+            
+            drawBoard(TTT, xWins, oWins, tied);
+            
+            if(won.get(won.size()-1) != 0) {
+                if(won.get(won.size()-1) == 10) {
+                    System.out.println("Sub-board " + subBoard + " has ended in a tie!");
+                }
+                else if(turn%2+1 == 1) {
+                    System.out.println("Player 1 has won sub-board " + subBoard);
+                }
+                else {
+                    System.out.println("Player 2 has won sub-board " + subBoard);
+                }
+            }
         }
         System.out.println("GAME OVER! " + ((checkWinner(TTT)==3?"The game ends in a tie!":
                             "Player " + (checkWinner(TTT)==1?1:2) + " wins!")));
@@ -175,7 +187,16 @@ public class game
             }
         }
         
-        return 0;
+        //filled check
+        for(Board[] b : TTT) {
+            for(Board board : b) {
+                if(board.getWinner() == 0) {
+                    return 0;
+                }
+            }
+        }
+        
+        return 3;
     }
 
     //finds index of the board number chosen
