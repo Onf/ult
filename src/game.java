@@ -1,5 +1,5 @@
 
-/**
+/*
  * Write a description of class game here.
  * 
  * @author Jabin Gong, Tariq Kariapper, Ali Ahmed

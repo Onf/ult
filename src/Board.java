@@ -15,7 +15,6 @@ public class Board {
     private int area;
     private Tile[][] board;
     private int winner;
-    private boolean finished = false;
 
     public Board(int a) {
         area = a;
