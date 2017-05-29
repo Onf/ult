@@ -50,7 +50,8 @@ public class game
         }
 
         drawBoard(TTT);
-        System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1)==1)?"(X)":"(O)");
+        String symb =  ((turn%2+1)==1)?"(X)":"(O)";
+        System.out.println("Player " + (turn%2+1) + "'s turn." + symb);
 
         int subBoard, tile;
         System.out.print("Choose a sub-board: "); subBoard = read.nextInt();
@@ -91,10 +92,10 @@ public class game
                 tile = read.nextInt();
             }
             
-            temp = new String(findIndexOfSubBoard(subBoard));
+            temp = findIndexOfSubBoard(subBoard);
             c = Integer.parseInt(temp.substring(1));
             r = Integer.parseInt(temp.substring(0,1));
-            while(TTT[r][c].move(tile, (turn%2==0)?"X":"O") == false) {
+            while(!TTT[r][c].move(tile, (turn % 2 == 0) ? "X" : "O")) {
                 System.out.print("Invalid move. Try again: "); tile = read.nextInt();
                 while (tile < 1 || tile > 9) {
                     System.out.print("Invalid move. Try again: ");
@@ -139,7 +140,7 @@ public class game
     }
     
     //checks for winners on the board *****************TO BE REVIEWED*****************
-    public static int checkWinner(Board[][] TTT) {
+    private static int checkWinner(Board[][] TTT) {
         //horizontal check
         for(Board[] b : TTT) {
             if(b[0].getWinner()==(b[1].getWinner()) &&
@@ -178,7 +179,7 @@ public class game
     }
 
     //finds index of the board number chosen
-    public static String findIndexOfSubBoard(int subBoard) {
+    private static String findIndexOfSubBoard(int subBoard) {
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 subBoard--;
@@ -192,7 +193,7 @@ public class game
 
     
 //draws the board one row at a time using the drawRow method of each Board object within TTT
-    public static void drawBoard(Board[][] TTT) {
+    private static void drawBoard(Board[][] TTT) {
         int rowNum = 0;
         System.out.println("#######################################");
         for(int i = 0; i < 3; i++) {
@@ -207,7 +208,7 @@ public class game
         }
     }
 
-    public static void drawIntro() {
+    private static void drawIntro() {
         System.out.println("\n" +
                 " /##   /## /##   /##     /##                           /##                                \n" +
                 "| ##  | ##| ##  | ##    |__/                          | ##                                \n" +
@@ -315,7 +316,7 @@ public class game
 
 
 
-    public static void drawTutorial1() {
+    private static void drawTutorial1() {
         System.out.println("#######################################\n"+
                 "#           ##           ##           #\n"+
                 "#           ##           ##           #\n"+
@@ -339,7 +340,7 @@ public class game
                             + "\nUse these numbers to choose a sub-board at the start of the game.");
 
     }
-    public static void drawTutorial2() {
+    private static void drawTutorial2() {
         System.out.println("#######################################\n"+
                 "# 1 | 2 | 3 ## 1 | 2 | 3 ## 1 | 2 | 3 #\n"+
                 "#-----------##-----------##-----------#\n"+
