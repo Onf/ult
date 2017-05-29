@@ -112,8 +112,9 @@ public class game
             drawBoard(TTT);
             
             if(won.get(won.size()-1) != 0) {
-                if(won.get(won.size()-1) == 3) {
+                if(won.get(won.size()-1) == 10) {
                     System.out.println("Sub-board " + subBoard + " has ended in a tie!");
+                    won.add(subBoard);
                 }
                 else if(turn%2+1 == 1) {
                     xWins++;
