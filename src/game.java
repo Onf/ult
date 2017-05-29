@@ -100,7 +100,7 @@ public class game
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
             tile = read.nextInt();
 
-            while (tile < 1 || tile > 9 || searchWon(tile, won)) {
+            while (tile < 1 || tile > 9) {
                 System.out.print("Invalid move. Try again: ");
                 tile = read.nextInt();
             }
