@@ -214,7 +214,7 @@ public class game
 
     
 //draws the board one row at a time using the drawRow method of each Board object within TTT
-    private static void drawBoard(Board[][] TTT, int x, int o) {
+    private static void drawBoard(Board[][] TTT, ArrayList<Integer> x, ArrayList<Integer> o, ArrayList<Integer> tied) {
         int rowNum = 0;
         System.out.println("#######################################");
         for(int i = 0; i < 3; i++) {
@@ -222,7 +222,8 @@ public class game
                 for(int k = 0; k < 3; k++) {
                     TTT[i][k].drawRow(rowNum % 3);
                 }
-                System.out.print((rowNum==1)?"\t\tPlayer 1 win count: " + x:(rowNum==2)?"\t\tPlayer 2 win count: " + o:"");
+                System.out.print((rowNum==1)?"\t\tPlayer 1 won boards: " + x:(rowNum==2)?"\t\tPlayer 2 won boards: " + o:
+                                    (rowNum==3)?"\t\tTied boards: " + t:"");
                 rowNum++;
                 System.out.println((j==2)?"":"\n#-----------##-----------##-----------#");
             }
