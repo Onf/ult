@@ -336,7 +336,7 @@ public class game
                 "#           ##           ##           #\n"+
                 "#           ##           ##           #\n"+
                 "#######################################\n");
-        System.out.println("The game plays like tic-tac-toe. Each section of the board is assigned a number. "
+        System.out.println("The game plays like tic-tac-toe. Each section of the main board is assigned a number. "
                             + "\nUse these numbers to choose a sub-board at the start of the game.");
 
     }
@@ -362,6 +362,9 @@ public class game
                 "#######################################\n");
         System.out.println("However, each sub-board is further split into tiles from 1-9. Players take turns using these numbers to choose a spot to mark during the game." +
                            "\nThe tile a player selects corresponds to a sub-board on the larger board that the next player must play on." +
-                           "\nWin 3 sub-boards horizontally, vertically, or diagonally to win the game.");
+                           "\nWin 3 sub-boards horizontally, vertically, or diagonally to win the game." +
+                           "\nOnce a sub-board has been won, it cannot be selected again. If a player happens to select a tile on another board that corresponds to an already won sub-board, " +
+                           "\nthe next player will be able to choose any sub-board to play on." +
+                           "\nSub-boards can end in ties, and the main board can also end in a tie.");
     }
 }
