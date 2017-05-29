@@ -116,10 +116,11 @@ public class Board
         for(Tile[] t : board) {
             for(Tile tile : t) {
                 if(tile.getSymbol().equals(" ") {
+                    winner = 0;
                     return 0;
                 }
             }
         }
-        return area;
-    
+                   
+        return 3;
 }
