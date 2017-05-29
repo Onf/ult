@@ -139,17 +139,14 @@ public class game
             
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
-                    System.out.println("Sub-board " + subBoard + " has ended in a tie!");
                     won.add(subBoard);
                     tied.add(subBoard);
                 }
                 else if(turn%2+1 == 1) {
                     xWins.add(subBoard);
-                    System.out.println("Player 1 has won sub-board " + subBoard);
                 }
                 else {
                     oWins.add(subBoard);
-                    System.out.println("Player 2 has won sub-board " + subBoard);
                 }
             }
             
