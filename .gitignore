@@ -1,3 +1,11 @@
 .idea/
 out/
-.iml
+src/Board.class
+src/Board.ctxt
+src/Tile.class
+src/Tile.ctxt
+src/__SHELL0.class
+src/__SHELL0.java
+src/game.class
+src/game.ctxt
+src/package.bluej
