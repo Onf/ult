@@ -31,7 +31,8 @@ public class game
         ArrayList<Integer> won = new ArrayList<Integer>();
         int count = 1;
         int turn = 2;
-        int xWins, oWins = 0;
+        int xWins = 0;
+        int oWins = 0;
 
         System.out.print("Please set the window to fullscreen. Press ENTER to continue... "); read.nextLine();
         drawIntro();
@@ -49,7 +50,7 @@ public class game
         }
 
         drawBoard(TTT);
-        System.out.println("Player " + (turn%2+1) + "'s turn.");
+        System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1)==1)?"(X)":"(O)");
 
         int subBoard, tile;
         System.out.print("Choose a sub-board: "); subBoard = read.nextInt();
@@ -72,7 +73,7 @@ public class game
         drawBoard(TTT);
 
         while(checkWinner(TTT) == 0) {  //TO BE EDITED, checkWinner should return a player #
-            System.out.println("Player " + (turn%2+1) + "'s turn.");
+            System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1==1)?"(X)":"(O)"));
             
             if(searchWon(tile, won)) {
                 System.out.print("Previous player chose a sub-board that is already won. Choose any other sub-board: ");
@@ -109,9 +110,26 @@ public class game
             System.out.print("\f");
 
             drawBoard(TTT);
-            System.out.print((won.get(won.size()-1)!=0)?"Player " + (turn%2+1) + " has won sub-board " + won.get(won.size() - 1) + "\n":"");
+            
+            if(won.get(won.size()-1) != 0) {
+                if(won.get(won.size()-1) == 3) {
+                    System.out.println("Sub-board " + subBoard + " has ended in a tie!");
+                }
+                else if(turn%2+1 == 1) {
+                    xWins++;
+                    System.out.println("Player 1 has won sub-board " + subBoard);
+                }
+                else {
+                    oWins++;
+                    System.out.println("Player 2 has won sub-board " + subBoard);
+                }
+            }
+            
+            //System.out.print((won.get(won.size()-1)!=0)?"Player " + (turn%2+1) + " has won sub-board " + won.get(won.size() - 1) + "\n":"");
             turn++;
         }
+        System.out.println("GAME OVER! Player " + ((checkWinner(TTT)==1)?1:2) + " wins!");
+        //not implemented: tie game
     }
 
     //checks if the board is won, in which case it would be contained in the ArrayList won
