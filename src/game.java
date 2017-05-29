@@ -54,17 +54,28 @@ public class game
         String symb =  ((turn%2+1)==1)?"(X)":"(O)";
         System.out.println("Player " + (turn%2+1) + "'s turn." + symb);
 
-        int subBoard, tile;
-        System.out.print("Choose a sub-board: "); subBoard = read.nextInt();
-        while (subBoard < 1 || subBoard > 9 || searchWon(subBoard, won)) {
-            System.out.print("Invalid selection. Choose a sub-board: ");
-            subBoard = read.nextInt();
+        int subBoard = -1;
+        int tile = -1;
+        System.out.print("Choose a sub-board: ");
+        do  {
+            try {
+                subBoard = read.nextInt();
+            } catch (InputMismatchException ex) {
+                read.next();
+            }
         }
-        System.out.print("Choose a tile number: "); tile = read.nextInt();
-        while (tile < 1 || tile > 9) {
-            System.out.print("Invalid selection. Choose a tile number: ");
-            tile = read.nextInt();
+
+        while (!isValidInput(subBoard));
+
+        System.out.print("Choose a tile: ");
+        do  {
+            try {
+                tile = read.nextInt();
+            } catch (InputMismatchException ex) {
+                read.next();
+            }
         }
+        while (!isValidInput(tile));
         
         String temp = findIndexOfSubBoard(subBoard);
         int c = Integer.parseInt(temp.substring(1));
@@ -79,29 +90,45 @@ public class game
             
             if(searchWon(tile, won)) {
                 System.out.print("Previous player chose a sub-board that is already won. Choose any other sub-board: ");
-                tile = read.nextInt();
-                while((tile < 1 || tile > 9) || searchWon(tile, won)) {
-                    System.out.print("Invalid move. Try again: "); tile = read.nextInt();   
+                tile = -1;
+                do  {
+                    try {
+                        tile = read.nextInt();
+                    } catch (InputMismatchException ex) {
+                        read.next();
+                    }
                 }
+                while (!isValidInput(tile)|| searchWon(tile, won));
+
             }
             subBoard = tile;
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
-            tile = read.nextInt();
-            
-            while (tile < 1 || tile > 9) {
-                System.out.print("Invalid move. Try again: ");
-                tile = read.nextInt();
+
+
+            tile = -1;
+            do  {
+                try {
+                    tile = read.nextInt();
+                } catch (InputMismatchException ex) {
+                    read.next();
+                }
             }
+            while (!isValidInput(tile)|| searchWon(tile, won));
             
             temp = findIndexOfSubBoard(subBoard);
             c = Integer.parseInt(temp.substring(1));
             r = Integer.parseInt(temp.substring(0,1));
             while(!TTT[r][c].move(tile, (turn % 2 == 0) ? "X" : "O")) {
-                System.out.print("Invalid move. Try again: "); tile = read.nextInt();
-                while (tile < 1 || tile > 9) {
-                    System.out.print("Invalid move. Try again: ");
-                    tile = read.nextInt();
+                System.out.print("Invalid move. Try again: ");
+                tile = -1;
+                do  {
+                    try {
+                        tile = read.nextInt();
+                    } catch (InputMismatchException ex) {
+                        read.next();
+                    }
                 }
+                while (!isValidInput(tile)|| searchWon(tile, won));
                 temp = findIndexOfSubBoard(subBoard);
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
@@ -146,6 +173,14 @@ public class game
                             "Player " + (checkWinner(TTT)==1?1:2) + " wins!")));
     }
 
+    //checks validity of input
+    public static boolean isValidInput(int input){
+        if (input > 0 && input < 10) return true;
+        else {
+            System.out.print("Invalid move. Try again: ");
+            return false;
+        }
+    }
     //checks if the board is won, in which case it would be contained in the ArrayList won
     public static boolean searchWon(int s, ArrayList<Integer> won) {
         return won.contains(s);   
