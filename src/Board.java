@@ -122,5 +122,5 @@ public class Board
             }
         }
                    
-        return 3;
+        return 10;
 }
