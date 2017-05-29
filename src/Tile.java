@@ -26,4 +26,8 @@ public class Tile
     public void setSymbol(String s) {
         symbol = s;
     }
+    
+    public String toString() {
+        return symbol;
+    }
 }
