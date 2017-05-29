@@ -49,7 +49,7 @@ public class game
             }
         }
 
-        drawBoard(TTT);
+        drawBoard(TTT, xWins, oWins);
         String symb =  ((turn%2+1)==1)?"(X)":"(O)";
         System.out.println("Player " + (turn%2+1) + "'s turn." + symb);
 
@@ -71,7 +71,7 @@ public class game
         TTT[r][c].move(tile, (turn%2==0)?"X":"O");
         System.out.print("\f");
         turn++;
-        drawBoard(TTT);
+        drawBoard(TTT, xWins, oWins);
 
         while(checkWinner(TTT) == 0) {  //TO BE EDITED, checkWinner should return a player #
             System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1==1)?"(X)":"(O)"));
@@ -110,7 +110,7 @@ public class game
             
             System.out.print("\f");
 
-            drawBoard(TTT);
+            drawBoard(TTT, xWins, oWins);
             
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
@@ -130,8 +130,8 @@ public class game
             //System.out.print((won.get(won.size()-1)!=0)?"Player " + (turn%2+1) + " has won sub-board " + won.get(won.size() - 1) + "\n":"");
             turn++;
         }
-        System.out.println("GAME OVER! Player " + ((checkWinner(TTT)==1)?1:2) + " wins!");
-        //not implemented: tie game
+        System.out.println("GAME OVER! " + ((checkWinner(TTT)==3?"The game ends in a tie!":
+                            "Player " + (checkWinner(TTT)==1?1:2) + " wins!")));
     }
 
     //checks if the board is won, in which case it would be contained in the ArrayList won
@@ -193,15 +193,16 @@ public class game
 
     
 //draws the board one row at a time using the drawRow method of each Board object within TTT
-    private static void drawBoard(Board[][] TTT) {
+    private static void drawBoard(Board[][] TTT, int x, int o) {
         int rowNum = 0;
         System.out.println("#######################################");
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 for(int k = 0; k < 3; k++) {
-                    TTT[i][k].drawRow(rowNum);
+                    TTT[i][k].drawRow(rowNum % 3);
                 }
-                rowNum++; rowNum %= 3;
+                System.out.print((rowNum==1)?"\t\tPlayer 1 win count: " + x:(rowNum==2)?"\t\tPlayer 2 win count: " + o:"");
+                rowNum++;
                 System.out.println((j==2)?"":"\n#-----------##-----------##-----------#");
             }
             System.out.println("#######################################");
