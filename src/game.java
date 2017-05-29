@@ -90,45 +90,29 @@ public class game
             
             if(searchWon(tile, won)) {
                 System.out.print("Previous player chose a sub-board that is already won. Choose any other sub-board: ");
-                tile = -1;
-                do  {
-                    try {
-                        tile = read.nextInt();
-                    } catch (InputMismatchException ex) {
-                        read.next();
-                    }
+                while (tile < 1 || tile > 9 || searchWon(tile, won)) {
+                    System.out.print("Invalid move. Try again: ");
+                    tile = read.nextInt();
                 }
-                while (!isValidInput(tile)|| searchWon(tile, won));
-
             }
             subBoard = tile;
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
 
 
-            tile = -1;
-            do  {
-                try {
-                    tile = read.nextInt();
-                } catch (InputMismatchException ex) {
-                    read.next();
-                }
+            while (tile < 1 || tile > 9 || searchWon(tile, won)) {
+                System.out.print("Invalid move. Try again: ");
+                tile = read.nextInt();
             }
-            while (!isValidInput(tile)|| searchWon(tile, won));
             
             temp = findIndexOfSubBoard(subBoard);
             c = Integer.parseInt(temp.substring(1));
             r = Integer.parseInt(temp.substring(0,1));
             while(!TTT[r][c].move(tile, (turn % 2 == 0) ? "X" : "O")) {
                 System.out.print("Invalid move. Try again: ");
-                tile = -1;
-                do  {
-                    try {
-                        tile = read.nextInt();
-                    } catch (InputMismatchException ex) {
-                        read.next();
-                    }
+                while (tile < 1 || tile > 9 || searchWon(tile, won)) {
+                    System.out.print("Invalid move. Try again: ");
+                    tile = read.nextInt();
                 }
-                while (!isValidInput(tile)|| searchWon(tile, won));
                 temp = findIndexOfSubBoard(subBoard);
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
