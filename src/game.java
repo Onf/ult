@@ -330,6 +330,13 @@ public class game
     
 
     private static void drawIntro() {
+        System.out.println("\f2+5 = " + (2 + 5));
+        System.out.println("Java is cool!");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }s
         System.out.println("\n" +
                 " /##   /## /##   /##     /##                           /##                                \n" +
                 "| ##  | ##| ##  | ##    |__/                          | ##                                \n" +
@@ -422,7 +429,7 @@ public class game
                 "| ########| ##| ##\n" +
                 "| ##  | ##| ##| ##\n" +
                 "| ##  | ##| ##| ##\n" +
-                " \\##   \\## \\## \\##");
+                " \\##   \\## \\## \\##\n\n\n");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -457,7 +464,7 @@ public class game
 
     }
     private static void drawTutorial2() {
-        System.out.println("#######################################\n"+
+        System.out.println("\n#######################################\n"+
                 "# 1 | 2 | 3 ## 1 | 2 | 3 ## 1 | 2 | 3 #\n"+
                 "#-----------##-----------##-----------#\n"+
                 "# 4 | 5 | 6 ## 4 | 5 | 6 ## 4 | 5 | 6 #\n"+
