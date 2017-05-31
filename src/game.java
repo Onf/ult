@@ -76,7 +76,7 @@ public class game
             }
         }
         while (!isValidInput(tile));
-        
+
         String temp = findIndexOfSubBoard(subBoard);
         int c = Integer.parseInt(temp.substring(1));
         int r = Integer.parseInt(temp.substring(0,1));
@@ -87,41 +87,81 @@ public class game
         while(checkWinner(TTT) == 0 && checkWinner(TTT) != 3) { //not sure if checkWinner(TTT) != 3 works for tie game condition
             turn++;
             System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1==1)?"(X)":"(O)"));
-            
+
             if(searchWon(tile, won)) {
                 System.out.print("Previous player chose a sub-board that is already won. Choose any other sub-board: ");
-                tile = read.nextInt();
+                tile = -1;
+                boolean firstPass = true;
+                do  {
+                    try {
+                        if (firstPass) firstPass = false;
+                        else if(searchWon(tile, won)) System.out.print("Invalid move. Try again: ");
+
+                        tile = read.nextInt();
+                    } catch (InputMismatchException ex) {
+                        read.next();
+                    }
+                }
+                while (!isValidInput(tile)||searchWon(tile, won));
+                /*tile = read.nextInt();
                 while (tile < 1 || tile > 9 || searchWon(tile, won)) {
                     System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
-                }
+                }*/
+
             }
             subBoard = tile;
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
-            tile = read.nextInt();
+
+            tile = -1;
+            do  {
+                try {
+                    tile = read.nextInt();
+                } catch (InputMismatchException ex) {
+
+                    read.next();
+                }
+            }
+            while (!isValidInput(tile)||searchWon(tile, won));
+            /*tile = read.nextInt();
 
             while (tile < 1 || tile > 9) {
                 System.out.print("Invalid move. Try again: ");
                 tile = read.nextInt();
-            }
-            
+            }*/
+
             temp = findIndexOfSubBoard(subBoard);
             c = Integer.parseInt(temp.substring(1));
             r = Integer.parseInt(temp.substring(0,1));
+
+            //flag to self
             while(!TTT[r][c].move(tile, (turn % 2 == 0) ? "X" : "O")) {
-                System.out.print("Invalid move. Try again: "); tile = read.nextInt();
+                System.out.print("Invalid move. Try again: ");
+
+                tile = -1;
+                do  {
+                    try {
+                        tile = read.nextInt();
+                    } catch (InputMismatchException ex) {
+
+                        read.next();
+                    }
+                }
+                while (!isValidInput(tile)||searchWon(tile, won));
+
+                /*tile = read.nextInt();
                 while (tile < 1 || tile > 9) {
                     System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
-                }
+                }*/
                 temp = findIndexOfSubBoard(subBoard);
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
             }
-            
+
             won.add(TTT[r][c].checkBoard());
-            
-            
+
+
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
                     won.add(subBoard);
@@ -134,11 +174,11 @@ public class game
                     oWins.add(subBoard);
                 }
             }
-            
+
             System.out.print("\f");
-            
+
             drawBoard(TTT, xWins, oWins, tied);
-            
+
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
                     System.out.println("Sub-board " + subBoard + " has ended in a tie!");
@@ -152,7 +192,7 @@ public class game
             }
         }
         System.out.println("GAME OVER! " + ((checkWinner(TTT)==3?"The game ends in a tie!":
-                            "Player " + (checkWinner(TTT)==1?1:2) + " wins!")));
+                "Player " + (checkWinner(TTT)==1?1:2) + " wins!")));
     }
 
     //checks validity of input
@@ -165,29 +205,29 @@ public class game
     }
     //checks if the board is won, in which case it would be contained in the ArrayList won
     public static boolean searchWon(int s, ArrayList<Integer> won) {
-        return won.contains(s);   
+        return won.contains(s);
     }
-    
+
     //checks for winners on the board *****************TO BE REVIEWED*****************
     private static int checkWinner(Board[][] TTT) {
         //horizontal check
         for(Board[] b : TTT) {
             if(b[0].getWinner()==(b[1].getWinner()) &&
-                b[0].getWinner()==(b[2].getWinner()) &&
-                (b[0].getWinner() == 1 || b[0].getWinner() == 2)) {
-                    return b[0].getWinner();
-                }
+                    b[0].getWinner()==(b[2].getWinner()) &&
+                    (b[0].getWinner() == 1 || b[0].getWinner() == 2)) {
+                return b[0].getWinner();
+            }
         }
-        
+
         //vertical check
         for(int i = 0; i < 3; i++) {
-            if(TTT[0][i].getWinner()==(TTT[1][i].getWinner()) && 
-                TTT[0][i].getWinner()==(TTT[2][i].getWinner()) &&
-                (TTT[0][i].getWinner()==1 || TTT[0][i].getWinner()==2)) {
+            if(TTT[0][i].getWinner()==(TTT[1][i].getWinner()) &&
+                    TTT[0][i].getWinner()==(TTT[2][i].getWinner()) &&
+                    (TTT[0][i].getWinner()==1 || TTT[0][i].getWinner()==2)) {
                 return TTT[0][i].getWinner();
             }
         }
-        
+
         //diagonal checks
         if (TTT[0][0].getWinner()==(TTT[1][1].getWinner()) && TTT[0][0].getWinner()==(TTT[2][2].getWinner())){
             if (TTT[0][0].getWinner()==1) {
@@ -203,7 +243,7 @@ public class game
                 return 2;
             }
         }
-        
+
         //filled check
         for(Board[] b : TTT) {
             for(Board board : b) {
@@ -212,7 +252,7 @@ public class game
                 }
             }
         }
-        
+
         return 3;
     }
 
@@ -229,8 +269,8 @@ public class game
         return null;
     }
 
-    
-//draws the board one row at a time using the drawRow method of each Board object within TTT
+
+    //draws the board one row at a time using the drawRow method of each Board object within TTT
     private static void drawBoard(Board[][] TTT, ArrayList<Integer> x, ArrayList<Integer> o, ArrayList<Integer> t) {
         int rowNum = 0;
         System.out.println("#######################################");
@@ -240,7 +280,7 @@ public class game
                     TTT[i][k].drawRow(rowNum % 3);
                 }
                 System.out.print((rowNum==1)?"\t\tPlayer 1 won boards: " + x:(rowNum==2)?"\t\tPlayer 2 won boards: " + o:
-                                    (rowNum==3)?"\t\tTied boards: " + t:"");
+                        (rowNum==3)?"\t\tTied boards: " + t:"");
                 rowNum++;
                 System.out.println((j==2)?"":"\n#-----------##-----------##-----------#");
             }
@@ -274,7 +314,7 @@ public class game
                 "                                                                                          \n" +
                 " ");
         try {
-            Thread.sleep(300);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -292,7 +332,7 @@ public class game
                 "                                                                                      \\##    ##\n" +
                 "                                                                                       \\###### \n");
         try {
-            Thread.sleep(200);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -306,11 +346,9 @@ public class game
                 "| ##__| ##|  #######| ##__/ ##| ##| ##  | ##      \n" +
                 " \\##    ## \\##    ##| ##    ##| ##| ##  | ##      \n" +
                 "  \\######   \\####### \\#######  \\## \\##   \\##      \n" +
-                "                                                  \n" +
-                "                                                  \n" +
                 "                                                  \n");
         try {
-            Thread.sleep(200);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -330,25 +368,22 @@ public class game
                         "                                       \\##\n" +
                         "\n");
         try {
-            Thread.sleep(400);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.print("\n" +
-                "                           __                  __        __                                                __                                  __           \n" +
-                "                          |  \\                |  \\      |  \\                                              |  \\                                |  \\          \n" +
-                "  ______   _______    ____| ##       __    __ | ##____  | ##____         ______ ____    ______   __    __ | ##____    ______          ______  | ##  ______  \n" +
-                " |      \\ |       \\  /      ##      |  \\  |  \\| ##    \\ | ##    \\       |      \\    \\  |      \\ |  \\  |  \\| ##    \\  /      \\        |      \\ | ## /      \\ \n" +
-                "  \\######\\| #######\\|  #######      | ##  | ##| #######\\| #######\\      | ######\\####\\  \\######\\| ##  | ##| #######\\|  ######\\        \\######\\| ##|  ######\\\n" +
-                " /      ##| ##  | ##| ##  | ##      | ##  | ##| ##  | ##| ##  | ##      | ## | ## | ## /      ##| ##  | ##| ##  | ##| ##    ##       /      ##| ##| ##  | ##\n" +
-                "|  #######| ##  | ##| ##__| ##      | ##__/ ##| ##  | ##| ##  | ##      | ## | ## | ##|  #######| ##__/ ##| ##__/ ##| ########      |  #######| ##| ##__/ ##\n" +
-                " \\##    ##| ##  | ## \\##    ##       \\##    ##| ##  | ##| ##  | ##      | ## | ## | ## \\##    ## \\##    ##| ##    ## \\##     \\       \\##    ##| ## \\##    ##\n" +
-                "  \\####### \\##   \\##  \\#######        \\######  \\##   \\## \\##   \\##       \\##  \\##  \\##  \\####### _\\####### \\#######   \\#######        \\####### \\##  \\###### \n" +
-                "                                                                                                |  \\__| ##                                                  \n" +
-                "                                                                                                 \\##    ##                                                  \n" +
-                "                                                                                                  \\######                                                   \n");
+                "  ______   __  __ \n" +
+                " /      \\ |  \\|  \\\n" +
+                "|  ######\\| ## \\##\n" +
+                "| ##__| ##| ##|  \\\n" +
+                "| ##    ##| ##| ##\n" +
+                "| ########| ##| ##\n" +
+                "| ##  | ##| ##| ##\n" +
+                "| ##  | ##| ##| ##\n" +
+                " \\##   \\## \\## \\##");
         try {
-            Thread.sleep(200);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -377,7 +412,7 @@ public class game
                 "#           ##           ##           #\n"+
                 "#######################################\n");
         System.out.println("The game plays like tic-tac-toe. Each section of the main board is assigned a number. "
-                            + "\nUse these numbers to choose a sub-board at the start of the game.");
+                + "\nUse these numbers to choose a sub-board at the start of the game.");
 
     }
     private static void drawTutorial2() {
@@ -401,10 +436,10 @@ public class game
                 "# 7 | 8 | 9 ## 7 | 8 | 9 ## 7 | 8 | 9 #\n"+
                 "#######################################\n");
         System.out.println("However, each sub-board is further split into tiles from 1-9. Players take turns using these numbers to choose a spot to mark during the game." +
-                           "\nThe tile a player selects corresponds to a sub-board on the larger board that the next player must play on." +
-                           "\nWin 3 sub-boards horizontally, vertically, or diagonally to win the game." +
-                           "\nOnce a sub-board has been won, it cannot be selected again. If a player happens to select a tile on another board that corresponds to an already won sub-board, " +
-                           "\nthe next player will be able to choose any sub-board to play on." +
-                           "\nSub-boards can end in ties, and the main board can also end in a tie.");
+                "\nThe tile a player selects corresponds to a sub-board on the larger board that the next player must play on." +
+                "\nWin 3 sub-boards horizontally, vertically, or diagonally to win the game." +
+                "\nOnce a sub-board has been won, it cannot be selected again. If a player happens to select a tile on another board that corresponds to an already won sub-board, " +
+                "\nthe next player will be able to choose any sub-board to play on." +
+                "\nSub-boards can end in ties, and the main board can also end in a tie.");
     }
 }
