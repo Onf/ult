@@ -64,9 +64,11 @@ public class game
                 read.next();
             }
         }
-
         while (!isValidInput(subBoard));
 
+        System.out.print("\f");
+        drawBoard(TTT, xWins, oWins, tied, subBoard, findIndexOfSubBoard(subBoard));
+        
         System.out.print("Choose a tile: ");
         do  {
             try {
@@ -81,10 +83,12 @@ public class game
         int c = Integer.parseInt(temp.substring(1));
         int r = Integer.parseInt(temp.substring(0,1));
         TTT[r][c].move(tile, (turn%2==0)?"X":"O");
+        
+        temp = findIndexOfSubBoard(tile);
         System.out.print("\f");
-        drawBoard(TTT, xWins, oWins, tied);
+        drawBoard(TTT, xWins, oWins, tied, tile, temp);
 
-        while(checkWinner(TTT) == 0 && checkWinner(TTT) != 3) { //not sure if checkWinner(TTT) != 3 works for tie game condition
+        while(checkWinner(TTT) == 0 && checkWinner(TTT) != 3) {
             turn++;
             System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1==1)?"(X)":"(O)"));
 
@@ -158,6 +162,10 @@ public class game
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
             }
+            
+            temp = findIndexOfSubBoard(tile);
+            System.out.print("\f");
+            drawBoard(TTT, xWins, oWins, tied, tile, temp);
 
             won.add(TTT[r][c].checkBoard());
 
@@ -176,8 +184,7 @@ public class game
             }
 
             System.out.print("\f");
-
-            drawBoard(TTT, xWins, oWins, tied);
+            drawBoard(TTT, xWins, oWins, tied, tile, temp);
 
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
@@ -270,23 +277,57 @@ public class game
     }
 
 
+    
     //draws the board one row at a time using the drawRow method of each Board object within TTT
-    private static void drawBoard(Board[][] TTT, ArrayList<Integer> x, ArrayList<Integer> o, ArrayList<Integer> t) {
+    private static void drawBoard(Board[][] TTT, ArrayList<Integer> x, ArrayList<Integer> o, ArrayList<Integer> t, int subBoard, String temp) {
         int rowNum = 0;
-        System.out.println("#######################################");
+        String highlighter = "@"; String normal = "|";
+        int r = Integer.parseInt(temp.substring(0,1));
+        int c = Integer.parseInt(temp.substring(1));
+        //top border
+        for(int i = 1; i <= 39; i++) {
+                if(i <= c*13+13 && i > c*13 &&
+                    (subBoard <= 3 && subBoard >= 1))
+                    System.out.print(highlighter);
+                else
+                    System.out.print(normal);
+        }
+        System.out.println();
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 for(int k = 0; k < 3; k++) {
-                    TTT[i][k].drawRow(rowNum % 3);
+                    TTT[i][k].drawRow(rowNum % 3, subBoard, temp, highlighter, normal);
                 }
                 System.out.print((rowNum==1)?"\t\tPlayer 1 won boards: " + x:(rowNum==2)?"\t\tPlayer 2 won boards: " + o:
-                        (rowNum==3)?"\t\tTied boards: " + t:"");
+                                    (rowNum==3)?"\t\tTied boards: " + t:"");
+                System.out.println();
                 rowNum++;
-                System.out.println((j==2)?"":"\n#-----------##-----------##-----------#");
+                
+                if(j < 2) {
+                    for(int m = 0; m < 3; m++) {
+                        if(c == m && r == i) {
+                            System.out.print(highlighter+"-----------"+highlighter);
+                        }
+                        else {
+                            System.out.print(normal+"-----------"+normal);
+                        }
+                    }
+                    System.out.println();
+                }
+                //System.out.println((j==2)?"":"\n"+normal+"-----------"+normal+normal+"-----------"+normal+normal+"-----------"+normal);
             }
-            System.out.println("#######################################");
+            
+            for(int l = 1; l <= 39; l++) {
+                if((l <= c*13+13 && l > c*13 &&
+                        r == i))
+                    System.out.print(highlighter);
+                else
+                    System.out.print(normal);
+            }
+            System.out.println();
         }
     }
+    
 
     private static void drawIntro() {
         System.out.println("\n" +
