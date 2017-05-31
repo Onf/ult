@@ -336,7 +336,7 @@ public class game
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }s
+        }
         System.out.println("\n" +
                 " /##   /## /##   /##     /##                           /##                                \n" +
                 "| ##  | ##| ##  | ##    |__/                          | ##                                \n" +
