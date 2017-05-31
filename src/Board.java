@@ -28,10 +28,21 @@ public class Board {
         }
     }
 
-    public void drawRow(int r) {
+    public void drawRow(int r, int subBoard, String temp, String highlighter, String normal) {
+        
         for (int i = 0; i < 3; i++) {
-            System.out.print((i == 0) ? "# " + board[r][i] + " |" : (i == 2) ? " " + board[r][i] + " #" : " " + board[r][i] + " |");
+            if(subBoard == area) {
+                System.out.print((i == 0) ? highlighter+" "+board[r][i]+" |" :
+                                (i == 2) ? " "+board[r][i]+" "+highlighter :
+                                " " + board[r][i] + " |");
+            }
+            else {
+                System.out.print((i == 0) ? normal+" "+board[r][i]+" |" :
+                                    (i == 2) ? " "+board[r][i]+" "+normal :
+                                    " " + board[r][i] + " |");
+            }
         }
+        
     }
 
     public int getWinner() {
