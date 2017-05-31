@@ -120,6 +120,8 @@ public class game
             tile = -1;
             do  {
                 try {
+                    //idk if this works lol
+                     System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
                 } catch (InputMismatchException ex) {
 
