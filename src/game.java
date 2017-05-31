@@ -50,7 +50,7 @@ public class game
             }
         }
 
-        drawBoard(TTT, xWins, oWins, tied);
+        drawBoard(TTT, xWins, oWins, tied, 0, "44");
         String symb =  ((turn%2+1)==1)?"(X)":"(O)";
         System.out.println("Player " + (turn%2+1) + "'s turn." + symb);
 
