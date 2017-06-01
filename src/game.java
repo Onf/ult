@@ -68,6 +68,7 @@ public class game
 
         System.out.print("\f");
         drawBoard(TTT, xWins, oWins, tied, subBoard, findIndexOfSubBoard(subBoard));
+        System.out.println("Now at sub-board: "+subBoard);
         
         System.out.print("Choose a tile: ");
         do  {
@@ -442,7 +443,8 @@ public class game
 
 
     private static void drawTutorial1() {
-        System.out.println("#######################################\n"+
+        System.out.println(("*********ULTIMATE TIC TAC TOE**********\n"+
+                "#######################################\n"+
                 "#           ##           ##           #\n"+
                 "#           ##           ##           #\n"+
                 "#     1     ##     2     ##     3     #\n"+
