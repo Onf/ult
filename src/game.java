@@ -320,8 +320,8 @@ public class game
             }
             
             for(int l = 1; l <= 39; l++) {
-                if((l <= c*13+13 && l > c*13 &&
-                        r == i))
+                if(l <= c*13+13 && l > c*13 &&
+                        (r == i || r-1 == i))
                     System.out.print(highlighter);
                 else
                     System.out.print(normal);
