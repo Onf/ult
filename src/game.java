@@ -445,7 +445,7 @@ public class game
 
 
     private static void drawTutorial1() {
-        System.out.println(("*********ULTIMATE TIC TAC TOE**********\n"+
+        System.out.println("*********ULTIMATE TIC TAC TOE**********\n"+
                 "#######################################\n"+
                 "#           ##           ##           #\n"+
                 "#           ##           ##           #\n"+
