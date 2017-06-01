@@ -101,9 +101,10 @@ public class game
                     try {
                         if (firstPass) firstPass = false;
                         else if(searchWon(tile, won)) System.out.print("Invalid move. Try again: ");
-
+                        
                         tile = read.nextInt();
                     } catch (InputMismatchException ex) {
+                        
                         read.next();
                     }
                 }
@@ -116,6 +117,9 @@ public class game
 
             }
             subBoard = tile;
+            temp = findIndexOfSubBoard(tile);
+            System.out.print("\f");
+            drawBoard(TTT, xWins, oWins, tied, tile, temp);
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
 
             tile = -1;
@@ -125,11 +129,11 @@ public class game
                     if(searchWon(tile, won)) System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
                 } catch (InputMismatchException ex) {
-
+                    
                     read.next();
                 }
             }
-            while (!isValidInput(tile)||searchWon(tile, won));
+            while (!isValidInput(tile)&&searchWon(tile, won));
             /*tile = read.nextInt();
 
             while (tile < 1 || tile > 9) {
@@ -161,7 +165,6 @@ public class game
                     System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
                 }*/
-                temp = findIndexOfSubBoard(subBoard);
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
             }
@@ -171,7 +174,6 @@ public class game
             drawBoard(TTT, xWins, oWins, tied, tile, temp);
 
             won.add(TTT[r][c].checkBoard());
-
 
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
