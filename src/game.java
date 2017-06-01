@@ -121,7 +121,7 @@ public class game
             do  {
                 try {
                     //idk if this works lol
-                     //System.out.print("Invalid move. Try again: ");
+                    if(searchWon(tile, won)) System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
                 } catch (InputMismatchException ex) {
 
