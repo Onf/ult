@@ -168,10 +168,6 @@ public class game
                 c = Integer.parseInt(temp.substring(1));
                 r = Integer.parseInt(temp.substring(0,1));
             }
-            
-            temp = findIndexOfSubBoard(tile);
-            System.out.print("\f");
-            drawBoard(TTT, xWins, oWins, tied, tile, temp);
 
             won.add(TTT[r][c].checkBoard());
 
@@ -187,9 +183,16 @@ public class game
                     oWins.add(subBoard);
                 }
             }
-
-            System.out.print("\f");
-            drawBoard(TTT, xWins, oWins, tied, tile, temp);
+            
+            if(won.contains(tile)) {
+                System.out.print("\f");
+                drawBoard(TTT, xWins, oWins, tied, subBoard, temp);
+            }
+            else {
+                temp = findIndexOfSubBoard(tile);
+                System.out.print("\f");
+                drawBoard(TTT, xWins, oWins, tied, tile, temp);
+            }
 
             if(won.get(won.size()-1) != 0) {
                 if(won.get(won.size()-1) == 10) {
