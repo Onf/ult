@@ -47,7 +47,7 @@ public class game
         System.out.print("Player 1 is X. Enter name: "); name1 = read.nextLine();
         System.out.print("Player 2 is O. Enter name: "); name2 = read.nextLine();
         System.out.println("Press ENTER to start the game...");
-        System.out.println("\f");
+        System.out.print("\f");
         
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
