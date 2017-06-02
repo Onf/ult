@@ -34,15 +34,21 @@ public class game
         ArrayList<Integer> xWins = new ArrayList<Integer>();
         ArrayList<Integer> oWins = new ArrayList<Integer>();
         ArrayList<Integer> tied = new ArrayList<Integer>();
+        String name1, name2;
 
         System.out.print("Please set the window to fullscreen. Press ENTER to continue... "); read.nextLine();
         drawIntro();
         drawTutorial1();
         System.out.print("\nPress ENTER to continue... "); read.nextLine();
         drawTutorial2();
-        System.out.print("\nPress ENTER to start the game... "); read.nextLine();
+        System.out.print("\nPress ENTER to enter names... "); read.nextLine();
         System.out.print("\f");
-
+        
+        System.out.print("Player 1 is X. Enter name: "); name1 = read.nextLine();
+        System.out.print("Player 2 is O. Enter name: "); name2 = read.nextLine();
+        System.out.println("Press ENTER to start the game...");
+        System.out.println("\f");
+        
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 TTT[i][j] = new Board(count);
@@ -52,7 +58,7 @@ public class game
 
         drawBoard(TTT, xWins, oWins, tied, 0, "44");
         String symb =  ((turn%2+1)==1)?"(X)":"(O)";
-        System.out.println("Player " + (turn%2+1) + "'s turn." + symb);
+        System.out.println((turn%2+1==1?name1:name2) + "'s turn." + symb);
 
         int subBoard = -1;
         int tile = -1;
@@ -68,6 +74,8 @@ public class game
 
         System.out.print("\f");
         drawBoard(TTT, xWins, oWins, tied, subBoard, findIndexOfSubBoard(subBoard));
+        symb =  ((turn%2+1)==1)?"(X)":"(O)";
+        System.out.println((turn%2+1==1?name1:name2) + "'s turn." + symb);
         System.out.println("Now at sub-board: "+subBoard);
         
         System.out.print("Choose a tile: ");
@@ -91,7 +99,8 @@ public class game
 
         while(checkWinner(TTT) == 0 && checkWinner(TTT) != 3) {
             turn++;
-            System.out.println("Player " + (turn%2+1) + "'s turn." + ((turn%2+1==1)?"(X)":"(O)"));
+            symb =  ((turn%2+1)==1)?"(X)":"(O)";
+            System.out.println((turn%2+1==1?name1:name2) + "'s turn." + symb);
 
             if(searchWon(tile, won)) {
                 System.out.print("Previous player chose a sub-board that is already won. Choose any other sub-board: ");
@@ -120,6 +129,8 @@ public class game
             temp = findIndexOfSubBoard(tile);
             System.out.print("\f");
             drawBoard(TTT, xWins, oWins, tied, tile, temp);
+            symb =  ((turn%2+1)==1)?"(X)":"(O)";
+            System.out.println((turn%2+1==1?name1:name2) + "'s turn." + symb);
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
 
             tile = -1;
