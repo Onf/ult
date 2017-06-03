@@ -127,7 +127,7 @@ public class game
                         read.next();
                     }
                 }
-                while (!isValidInput(tile)&&searchWon(tile, won));
+                while (!isValidInput(tile)?true:searchWon(tile, won));
                 /*tile = read.nextInt();
                 while (tile < 1 || tile > 9 || searchWon(tile, won)) {
                     System.out.print("Invalid move. Try again: ");
@@ -154,7 +154,7 @@ public class game
                     read.next();
                 }
             }
-            while (!isValidInput(tile)&&searchWon(tile, won));
+            while (!isValidInput(tile)?true:searchWon(tile, won));
             /*tile = read.nextInt();
 
             while (tile < 1 || tile > 9) {
@@ -179,7 +179,7 @@ public class game
                         read.next();
                     }
                 }
-                while (!isValidInput(tile)&&searchWon(tile, won));
+                while (!isValidInput(tile)?true:searchWon(tile, won));
 
                 /*tile = read.nextInt();
                 while (tile < 1 || tile > 9) {
