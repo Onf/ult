@@ -225,26 +225,53 @@ public class game
                 }
             }
         }
-        if (checkWinner(TTT) == 3) System.out.println("GAME OVER!\n" + "\n" +
-                " ________  __                                                              __ \n" +
-                "/        |/  |                                                            /  |\n" +
-                "########/ ##/   ______          ______    ______   _____  ____    ______  ## |\n" +
-                "   ## |   /  | /      \\        /      \\  /      \\ /     \\/    \\  /      \\ ## |\n" +
-                "   ## |   ## |/######  |      /######  | ######  |###### ####  |/######  |## |\n" +
-                "   ## |   ## |##    ## |      ## |  ## | /    ## |## | ## | ## |##    ## |##/ \n" +
-                "   ## |   ## |########/       ## \\__## |/####### |## | ## | ## |########/  __ \n" +
-                "   ## |   ## |##       |      ##    ## |##    ## |## | ## | ## |##       |/  |\n" +
-                "   ##/    ##/  #######/        ####### | #######/ ##/  ##/  ##/  #######/ ##/ \n" +
-                "                              /  \\__## |                                      \n" +
-                "                              ##    ##/                                       \n" +
-                "                               ######/                                        \n");
+        if (checkWinner(TTT) == 3){
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(
+                    "\f ________  __                                                              __ \n" +
+                    "/        |/  |                                                            /  |\n" +
+                    "########/ ##/   ______          ______    ______   _____  ____    ______  ## |\n" +
+                    "   ## |   /  | /      \\        /      \\  /      \\ /     \\/    \\  /      \\ ## |\n" +
+                    "   ## |   ## |/######  |      /######  | ######  |###### ####  |/######  |## |\n" +
+                    "   ## |   ## |##    ## |      ## |  ## | /    ## |## | ## | ## |##    ## |##/ \n" +
+                    "   ## |   ## |########/       ## \\__## |/####### |## | ## | ## |########/  __ \n" +
+                    "   ## |   ## |##       |      ##    ## |##    ## |## | ## | ## |##       |/  |\n" +
+                    "   ##/    ##/  #######/        ####### | #######/ ##/  ##/  ##/  #######/ ##/ \n" +
+                    "                              /  \\__## |                                      \n" +
+                    "                              ##    ##/                                       \n" +
+                    "                               ######/                                        \n");
+        }
         else {
             if(checkWinner(TTT) == 1) {
-                System.out.println("GAME OVER! " + name1 + " wins!");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\fGAME OVER! " + name1 + " wins!");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 drawWinner(name1);
             }
             else {
-                System.out.println("GAME OVER! " + name2 + " wins!");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\fGAME OVER! " + name2 + " wins!");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 drawWinner(name2);
             }
         }
@@ -253,7 +280,7 @@ public class game
     //prints out winner screen
     private static void drawWinner(String winner){
         int length = (21-winner.length())/2;
-        System.out.print("\f                                  ___________\n" +
+        System.out.print("                                  ___________\n" +
                 "                             .---'::'        `---.\n" +
                 "                            (::::::'              )\n" +
                 "                            |`-----._______.-----'|\n" +
