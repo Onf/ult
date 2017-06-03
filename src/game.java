@@ -41,14 +41,24 @@ public class game
         drawTutorial1();
         System.out.print("\nPress ENTER to continue... "); read.nextLine();
         drawTutorial2();
-        System.out.print("\nPress ENTER to enter names... "); read.nextLine();
+        System.out.print("\nPress ENTER to continue... "); read.nextLine();
         System.out.print("\f");
         
         System.out.print("Player 1 is X. Enter name: "); name1 = read.nextLine();
+        while(!(name1.length()<22&&name1.length()>0)){
+            System.out.print("Invalid entry. Please enter a name between 1 and 21 characters: "); name1 = read.nextLine();
+        }
         System.out.print("Player 2 is O. Enter name: "); name2 = read.nextLine();
+        while(!(name2.length()<22&&name2.length()>0)){
+            System.out.print("Invalid entry. Please enter a name between 1 and 21 characters: "); name2 = read.nextLine();
+        }
         System.out.println("Press ENTER to start the game...");
         System.out.print("\f");
-        
+
+        drawWinner(name1);
+        System.out.println("Press ENTER to start the game...");
+        System.out.print("\f");
+
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 TTT[i][j] = new Board(count);
@@ -221,6 +231,56 @@ public class game
                 "Player " + (checkWinner(TTT)==1?1:2) + " wins!")));
     }
 
+    //prints out winner screen
+    //21=trophy space
+    //if length is less than 9 this happens
+    // |               ::::::|
+    // |         name:::::::::|
+    // |                :::::|
+    public static void drawWinner(String winner){
+        int length = (21-winner.length())/2;
+        System.out.print("\f                                  ___________\n" +
+                "                             .---'::'        `---.\n" +
+                "                            (::::::'              )\n" +
+                "                            |`-----._______.-----'|\n" +
+                "                            |              :::::::|\n" +
+                "                           .|               ::::::!-.\n" +
+                "                           \\|               :::::/|/\n" +
+                "                            |               ::::::|\n" +
+                "                            |");
+        for (int i = 0; i < length; i++){
+            System.out.print(" ");
+        }
+        if(winner.length()%2==0)System.out.print(" ");
+        System.out.print(winner);
+        /*ignore this
+        if(winner.length<9){
+            int lenTemp = ;
+            for (int i = 0; i < length-6; i++){
+                System.out.print("-");
+                length--;
+            }
+        }*/
+        for (int i = 0; i < length; i++){
+            System.out.print(":");
+        }
+        System.out.print("|\n" +
+                "                            |                :::::|\n" +
+                "                            |               ::::::|\n" +
+                "                            |              .::::::|\n" +
+                "                            F              :::::::J\n" +
+                "                             \\            :::::::/\n" +
+                "                              `.        .:::::::'\n" +
+                "                                `-._  .::::::-'\n" +
+                "____________________________________|  \"\"\"|\"_________________________________________\n" +
+                "                                    |  :::|\n" +
+                "                                    F   ::J\n" +
+                "                                   /     ::\\                                        \n" +
+                "                              __.-'      :::`-.__\n" +
+                "                             (_           ::::::_)\n" +
+                "                               `\"\"\"---------\"\"\"'");
+    }
+
     //checks validity of input
     public static boolean isValidInput(int input){
         if (input > 0 && input < 10) return true;
@@ -349,7 +409,7 @@ public class game
     
 
     private static void drawIntro() {
-        System.out.println("\f2+5 = " + (2 + 5));
+        /*System.out.println("\f2+5 = " + (2 + 5));
         System.out.println("Java is cool!");
         try {
             Thread.sleep(5000);
@@ -453,7 +513,7 @@ public class game
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
