@@ -52,6 +52,9 @@ public class game
         while(!(name2.length()<22&&name2.length()>0)){
             System.out.print("Invalid entry. Please enter a name between 1 and 21 characters: "); name2 = read.nextLine();
         }
+        name1 = name1.trim();
+        name2 = name2.trim();
+        
         System.out.println("Press ENTER to start the game...");
         System.out.print("\f");
 
