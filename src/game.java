@@ -54,11 +54,6 @@ public class game
         }
         name1 = name1.trim();
         name2 = name2.trim();
-        
-        System.out.println("Press ENTER to start the game...");
-        System.out.print("\f");
-
-        drawWinner(name1);
         System.out.println("Press ENTER to start the game...");
         System.out.print("\f");
 
@@ -230,17 +225,33 @@ public class game
                 }
             }
         }
-        System.out.println("GAME OVER! " + ((checkWinner(TTT)==3?"The game ends in a tie!":
-                "Player " + (checkWinner(TTT)==1?1:2) + " wins!")));
+        if (checkWinner(TTT) == 3) System.out.println("GAME OVER!\n" + "\n" +
+                " ________  __                                                              __ \n" +
+                "/        |/  |                                                            /  |\n" +
+                "########/ ##/   ______          ______    ______   _____  ____    ______  ## |\n" +
+                "   ## |   /  | /      \\        /      \\  /      \\ /     \\/    \\  /      \\ ## |\n" +
+                "   ## |   ## |/######  |      /######  | ######  |###### ####  |/######  |## |\n" +
+                "   ## |   ## |##    ## |      ## |  ## | /    ## |## | ## | ## |##    ## |##/ \n" +
+                "   ## |   ## |########/       ## \\__## |/####### |## | ## | ## |########/  __ \n" +
+                "   ## |   ## |##       |      ##    ## |##    ## |## | ## | ## |##       |/  |\n" +
+                "   ##/    ##/  #######/        ####### | #######/ ##/  ##/  ##/  #######/ ##/ \n" +
+                "                              /  \\__## |                                      \n" +
+                "                              ##    ##/                                       \n" +
+                "                               ######/                                        \n");
+        else {
+            if(checkWinner(TTT) == 1) {
+                System.out.println("GAME OVER! " + name1 + " wins!");
+                drawWinner(name1);
+            }
+            else {
+                System.out.println("GAME OVER! " + name2 + " wins!");
+                drawWinner(name2);
+            }
+        }
     }
 
     //prints out winner screen
-    //21=trophy space
-    //if length is less than 9 this happens
-    // |               ::::::|
-    // |         name:::::::::|
-    // |                :::::|
-    public static void drawWinner(String winner){
+    private static void drawWinner(String winner){
         int length = (21-winner.length())/2;
         System.out.print("\f                                  ___________\n" +
                 "                             .---'::'        `---.\n" +
@@ -256,14 +267,14 @@ public class game
         }
         if(winner.length()%2==0)System.out.print(" ");
         System.out.print(winner);
-        /*ignore this
-        if(winner.length<9){
-            int lenTemp = ;
-            for (int i = 0; i < length-6; i++){
-                System.out.print("-");
+
+        if(winner.length()<8){
+            for (int i = 0; i < length-5; i++){
+                System.out.print(" ");
                 length--;
             }
-        }*/
+
+        }
         for (int i = 0; i < length; i++){
             System.out.print(":");
         }
@@ -278,14 +289,14 @@ public class game
                 "____________________________________|  \"\"\"|\"_________________________________________\n" +
                 "                                    |  :::|\n" +
                 "                                    F   ::J\n" +
-                "                                   /     ::\\                                        \n" +
+                "                                   /     ::\\\n" +
                 "                              __.-'      :::`-.__\n" +
                 "                             (_           ::::::_)\n" +
                 "                               `\"\"\"---------\"\"\"'");
     }
 
     //checks validity of input
-    public static boolean isValidInput(int input){
+    private static boolean isValidInput(int input){
         if (input > 0 && input < 10) return true;
         else {
             System.out.print("Invalid move. Try again: ");
@@ -293,7 +304,7 @@ public class game
         }
     }
     //checks if the board is won, in which case it would be contained in the ArrayList won
-    public static boolean searchWon(int s, ArrayList<Integer> won) {
+    private static boolean searchWon(int s, ArrayList<Integer> won) {
         return won.contains(s);
     }
 
