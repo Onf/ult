@@ -44,13 +44,13 @@ public class game
         System.out.print("\nPress ENTER to continue... "); read.nextLine();
         System.out.print("\f");
         
-        System.out.print("Player 1 is X. Enter name: "); name1 = read.nextLine();
+        System.out.print("Player 1 is X. Enter name: "); name1 = read.nextLine(); name1 = name1.trim();
         while(!(name1.length()<22&&name1.length()>0)){
-            System.out.print("Invalid entry. Please enter a name between 1 and 21 characters: "); name1 = read.nextLine();
+            System.out.print("Invalid entry. Please enter a name between 1 and 21 characters: "); name1 = read.nextLine(); name1 = name1.trim();
         }
-        System.out.print("Player 2 is O. Enter name: "); name2 = read.nextLine();
+        System.out.print("Player 2 is O. Enter name: "); name2 = read.nextLine(); name2 = name2.trim();
         while(!(name2.length()<22&&name2.length()>0)){
-            System.out.print("Invalid entry. Please enter a name between 1 and 21 characters: "); name2 = read.nextLine();
+            System.out.print("Invalid entry. Please enter a name between 1 and 21 characters: "); name2 = read.nextLine(); name2 = name2.trim();
         }
         name1 = name1.trim();
         name2 = name2.trim();
@@ -226,6 +226,7 @@ public class game
             }
         }
         if (checkWinner(TTT) == 3){
+            System.out.println("No one won.");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -252,12 +253,13 @@ public class game
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("\fGAME OVER! " + name1 + " wins!");
+                System.out.println("GAME OVER! " + name1 + " wins!");
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println("\fGAME OVER! " + name1 + " wins!");
                 drawWinner(name1);
             }
             else {
@@ -266,12 +268,13 @@ public class game
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("\fGAME OVER! " + name2 + " wins!");
+                System.out.println("GAME OVER! " + name2 + " wins!");
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println("\fGAME OVER! " + name2 + " wins!");
                 drawWinner(name2);
             }
         }
