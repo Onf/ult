@@ -1,4 +1,3 @@
-
 /*
  * Write a description of class game here.
  * 
@@ -140,21 +139,23 @@ public class game
             symb =  ((turn%2+1)==1)?"(X)":"(O)";
             System.out.println((turn%2+1==1?name1:name2) + "'s turn." + symb);
             System.out.print("Now at sub-board " + subBoard + ". Please choose a tile within that sub-board: ");
-
+            
+            temp = findIndexOfSubBoard(subBoard);
+            c = Integer.parseInt(temp.substring(1));
+            r = Integer.parseInt(temp.substring(0,1));
+                    
             tile = -1;
             do  {
                 try {
                     //idk if this works lol
-                    if(searchWon(tile, won)) System.out.print("Invalid move. Try again: ");
+                    if(!TTT[r][c].move(tile, " ")) System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
                 } catch (InputMismatchException ex) {
-                    
                     read.next();
                 }
             }
-            while (!isValidInput(tile)?true:searchWon(tile, won)?!TTT[r][c].move(tile, (turn % 2 == 0) ? "X" : "O"):false);
+            while (!isValidInput(tile)?true:!TTT[r][c].move(tile, " "));
             /*tile = read.nextInt();
-
             while (tile < 1 || tile > 9) {
                 System.out.print("Invalid move. Try again: ");
                 tile = read.nextInt();
@@ -166,26 +167,25 @@ public class game
 
             //flag to self
             while(!TTT[r][c].move(tile, (turn % 2 == 0) ? "X" : "O")) {
-                System.out.print("Invalid move. Try again: ");
+                System.out.print("Invalid choice. Try again: ");
 
                 tile = -1;
                 do  {
                     try {
+                        if(!TTT[r][c].move(tile, " ")) System.out.print("Invalid move. Try again: ");
                         tile = read.nextInt();
                     } catch (InputMismatchException ex) {
 
                         read.next();
                     }
                 }
-                while (!isValidInput(tile)?true:searchWon(tile, won));
+                while (!isValidInput(tile)?true:!TTT[r][c].move(tile, " "));
 
                 /*tile = read.nextInt();
                 while (tile < 1 || tile > 9) {
                     System.out.print("Invalid move. Try again: ");
                     tile = read.nextInt();
                 }*/
-                c = Integer.parseInt(temp.substring(1));
-                r = Integer.parseInt(temp.substring(0,1));
             }
 
             won.add(TTT[r][c].checkBoard());
@@ -225,6 +225,9 @@ public class game
                 }
             }
         }
+        
+        //********************************END GAME***********************************
+        
         if (checkWinner(TTT) == 3){
             System.out.println("No one won.");
             try {
