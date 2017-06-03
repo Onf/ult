@@ -154,7 +154,7 @@ public class game
                     read.next();
                 }
             }
-            while (!isValidInput(tile)?true:searchWon(tile, won));
+            while (!isValidInput(tile)?!TTT[r][c].move(tile, (turn % 2 == 0) ? "X" : "O")?true:searchWon(tile, won):false);
             /*tile = read.nextInt();
 
             while (tile < 1 || tile > 9) {
