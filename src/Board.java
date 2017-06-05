@@ -76,9 +76,11 @@ public class Board {
                     (b[0].getSymbol().equals("X") || b[0].getSymbol().equals("O"))) {
                 if (b[0].getSymbol().equals("X")) {
                     winner = 1;
+                    drawWinner();
                     return area;
                 } else if (b[0].getSymbol().equals("O")) {
                     winner = 2;
+                    drawWinner();
                     return area;
                 }
             }
@@ -91,9 +93,11 @@ public class Board {
                     (board[0][i].getSymbol().equals("X") || board[0][i].getSymbol().equals("O"))) {
                 if (board[0][i].getSymbol().equals("X")) {
                     winner = 1;
+                    drawWinner();
                     return area;
                 } else if (board[0][i].getSymbol().equals("O")) {
                     winner = 2;
+                    drawWinner();
                     return area;
                 }
             }
@@ -103,18 +107,22 @@ public class Board {
         if (board[0][0].getSymbol().equals(board[1][1].getSymbol()) && board[0][0].getSymbol().equals(board[2][2].getSymbol())) {
             if (board[0][0].getSymbol().equals("X")) {
                 winner = 1;
+                drawWinner();
                 return area;
             } else if (board[0][0].getSymbol().equals("O")) {
                 winner = 2;
+                drawWinner();
                 return area;
             }
         }
         if (board[0][2].getSymbol().equals(board[1][1].getSymbol()) && board[0][2].getSymbol().equals(board[2][0].getSymbol())) {
             if (board[0][2].getSymbol().equals("X")) {
                 winner = 1;
+                drawWinner();
                 return area;
             } else if (board[0][2].getSymbol().equals("O")) {
                 winner = 2;
+                drawWinner();
                 return area;
             }
         }
@@ -130,5 +138,15 @@ public class Board {
         }
 
         return 10;
+    }
+    
+    
+    public void drawWinner() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j].setSymbol((winner==1)?"X":"O");
+            }
+        }
+        
     }
 }
