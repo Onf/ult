@@ -378,6 +378,7 @@ public class game
         }
 
         //filled check
+        /*
         for(Board[] b : TTT) {
             for(Board board : b) {
                 if(board.getWinner() == 0) {
@@ -385,7 +386,7 @@ public class game
                 }
             }
         }
-
+        */
         return 3;
     }
 
