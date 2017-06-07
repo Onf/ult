@@ -454,7 +454,7 @@ public class game
     
 
     private static void drawIntro() {
-        /*System.out.println("\f2+5 = " + (2 + 5));
+        System.out.println("\f2+5 = " + (2 + 5));
         System.out.println("Java is cool!");
         try {
             Thread.sleep(5000);
@@ -558,7 +558,7 @@ public class game
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 
